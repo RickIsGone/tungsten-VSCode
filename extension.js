@@ -42,7 +42,7 @@ function activate(context) {
 
       let buildCmd = '';
       if (hasBuildTgs) {
-         buildCmd = `tungsten build.tgs`;
+         buildCmd = `tungsten build-tgs`;
       } else {
          const activeFile = vscode.window.activeTextEditor?.document.fileName;
          if (!activeFile) {
@@ -59,7 +59,7 @@ function activate(context) {
       const terminal = vscode.window.createTerminal('Tungsten Build + Run');
       terminal.show();
       terminal.sendText(buildCmd);
-      terminal.sendText(execFile);
+      terminal.sendText(".\\" + execFile);
    });
 
    context.subscriptions.push(buildCmd);

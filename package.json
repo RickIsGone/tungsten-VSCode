@@ -1,8 +1,9 @@
 {
-  "name": "tgs",
+  "name": "tungsten",
   "displayName": "tungsten",
   "description": "support for the tungsten programming language",
-  "version": "0.0.1",
+  "version": "0.1.1",
+  "publisher": "RickIsGone",
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -10,6 +11,15 @@
     "Programming Languages"
   ],
   "main": "extension.js",
+  "activationEvents": [
+    "onLanguage:tungsten",
+    "onCommand:tungsten.build",
+    "onCommand:tungsten.run"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rickisgone/tungsten-VSCode"
+  },
   "contributes": {
     "languages": [
       {
