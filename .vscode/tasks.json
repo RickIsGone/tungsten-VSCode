@@ -1,0 +1,35 @@
+{
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "build tungsten",
+         "type": "shell",
+         "command": "bash",
+         "args": [
+            "-c",
+            "if [ -f ./build.tgs ]; then echo 'build.tgs trovato: eseguo build personalizzata'; else echo 'build.tgs non trovato: eseguo build standard'; fi"
+         ],
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         },
+         "problemMatcher": []
+      }
+  
+         {
+         "label": "Run Tungsten",
+         "type": "shell",
+         "command": "./tungsten",
+         "args": [
+            "if [ -f ./build.tgs ]; then tgs-build; else {file}"
+         ],
+         "group": "build",
+         "problemMatcher": [],
+         "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "panel": "shared"
+         }
+      }
+   ]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "tgs",
+  "displayName": "tungsten",
+  "description": "support for the tungsten programming language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "tungsten",
+        "aliases": [
+          "tungsten",
+          "tungsten"
+        ],
+        "extensions": [
+          ".tgs"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tungsten",
+        "scopeName": "source.tungsten",
+        "path": "./syntaxes/tungsten.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "tungsten.build",
+        "title": "Build Tungsten"
+      },
+      {
+        "command": "tungsten.run",
+        "title": "▶ Run tungsten"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "tungsten.build",
+        "key": "f7",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "tungsten.run",
+        "key": "ctrl+f5",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "tungsten.run",
+          "when": "editorLangId == tungsten",
+          "group": "navigation@100"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "tungsten",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#types"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#punctuation"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#builtins"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#variables"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.tungsten",
+					"match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|exit|new|free|extern|module|export|import|class|public|private|protected|static|namespace)\\b"
+				}
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"name": "storage.type.tungsten",
+					"match": "\\b(Int|Uint|Int8|Uint8|Int16|Uint16|Int32|Uint32|Int64|Uint64|Int128|Uint128|Float|Double|Char|String|Bool|Void)\\b"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.tungsten",
+					"match": "(\\+\\+|--|\\+=|-=|\\*=|/=|%=|&=|\\|=|\\^=|==|!=|<=|>=|<<=|>>=|<<|>>|->|&&|\\|\\||!|\\+|-|\\*|/|%|=|<|>|&|\\||\\^|~|\\?|:)"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"name": "punctuation.separator.tungsten",
+					"match": "[,;:]"
+				},
+				{
+					"name": "punctuation.bracket.tungsten",
+					"match": "[{}\\[\\]()<>]"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.numeric.tungsten",
+					"match": "\\b(0x[0-9a-fA-F]+|\\d+\\.?\\d*|\\d*\\.\\d+)([eE][+-]?\\d+)?\\b"
+				},
+				{
+					"name": "constant.language.boolean.tungsten",
+					"match": "\\b(true|false)\\b"
+				},
+				{
+					"name": "constant.language.null.tungsten",
+					"match": "\\b(null|nullptr|NaN)\\b"
+				},
+				{
+					"name": "constant.language.codes.tungsten",
+					"match": "\\b(codeSuccess|codeFailure)\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.tungsten",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.tungsten",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.tungsten",
+					"match": "//.*$"
+				},
+				{
+					"name": "comment.block.tungsten",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
+		},
+		"builtins": {
+			"patterns": [
+				{
+					"name": "support.function.builtin.tungsten",
+					"match": "\\b(typeof|nameof|sizeof)(?=\\s*\\()"
+				},
+				{
+					"name": "support.constant.builtin.tungsten",
+					"match": "\\b(__BuiltinFunction|__BuiltinLine|__BuiltinColumn|__BuiltinFile)\\b(?=\\s*\\(\\))"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "entity.name.function.tungsten",
+					"match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "variable.other.tungsten",
+					"match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b"
+				}
+			]
+		}
+	},
+	"scopeName": "source.tungsten"
+}
