@@ -1,6 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "tungsten",
+	"scopeName": "source.tungsten",
 	"patterns": [
 		{
 			"include": "#comments"
@@ -30,6 +31,12 @@
 			"include": "#functions"
 		},
 		{
+			"include": "#class-declaration"
+		},
+		{
+			"include": "#class-usage"
+		},
+		{
 			"include": "#variables"
 		}
 	],
@@ -38,7 +45,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.tungsten",
-					"match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|exit|new|free|extern|module|export|import|class|public|private|protected|static|namespace)\\b"
+					"match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|exit|new|free|extern|module|export|import|class|public|private|protected|static|namespace|enum)\\b"
 				}
 			]
 		},
@@ -141,7 +148,29 @@
 					"match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b"
 				}
 			]
+		},
+		"class-declaration": {
+			"patterns": [
+				{
+					"name": "meta.class.tungsten",
+					"begin": "\\bclass\\s+(\\w+)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.type.class.tungsten"
+						}
+					},
+					"end": "\\{",
+					"patterns": []
+				}
+			]
+		},
+		"class-usage": {
+			"patterns": [
+				{
+					"name": "entity.name.type.tungsten",
+					"match": "\\b[A-Z][a-zA-Z0-9_]*\\b"
+				}
+			]
 		}
-	},
-	"scopeName": "source.tungsten"
+	}
 }
