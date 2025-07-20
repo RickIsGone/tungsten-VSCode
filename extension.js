@@ -59,7 +59,7 @@ function activate(context) {
       const terminal = vscode.window.createTerminal('Tungsten Build + Run');
       terminal.show();
       terminal.sendText(buildCmd);
-      terminal.sendText(".\\" + execFile);
+      terminal.sendText(".\\\"" + execFile + "\"");
    });
 
    context.subscriptions.push(buildCmd);

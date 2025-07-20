@@ -2,7 +2,7 @@
   "name": "tungsten",
   "displayName": "tungsten",
   "description": "support for the tungsten programming language",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "RickIsGone",
   "engines": {
     "vscode": "^1.102.0"
