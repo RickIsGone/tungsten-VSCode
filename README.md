@@ -38,7 +38,8 @@ This extension provides support for the **Tungsten** programming language in Vis
 
 ## Installation
 
-- Install from the VS Code Marketplace (once published) or
+- Install from the VS Code Marketplace
+- open the VS Code extension bar and look for Tungsten
 - Clone the repository and run your extension in development mode.
 
 ---
