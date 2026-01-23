@@ -45,7 +45,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.tungsten",
-					"match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|exit|new|free|extern|module|export|import|class|public|private|protected|static|namespace|enum)\\b"
+					"match": "\\b(fun|if|else|for|while|do|switch|case|default|break|continue|ret|exit|new|free|extern|module|export|import|class|public|private|protected|static|namespace|enum)\\b"
 				}
 			]
 		},
@@ -53,7 +53,7 @@
 			"patterns": [
 				{
 					"name": "storage.type.tungsten",
-					"match": "\\b(Int|Uint|Int8|Uint8|Int16|Uint16|Int32|Uint32|Int64|Uint64|Int128|Uint128|Float|Double|Char|String|Bool|Void)\\b"
+					"match": "\\b(int|uint|i8|u8|i16|u16|i32|u32|i64|u64|i128|u128|float|double|char|String|bool|void|num)\\b"
 				}
 			]
 		},
