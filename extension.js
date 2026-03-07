@@ -56,10 +56,13 @@ function activate(context) {
       // Assume executable has the same filename without .tgs extension
       const execFile = activeFile.replace(/\.tgs$/, '');
 
+      // Use correct path separator based on OS
+      const execPrefix = process.platform === 'win32' ? '.\\' : './';
+
       const terminal = vscode.window.createTerminal('Tungsten Build + Run');
       terminal.show();
       terminal.sendText(buildCmd);
-      terminal.sendText("./\"" + execFile + "\"");
+      terminal.sendText(execPrefix + "\"" + execFile + "\"");
    });
 
    context.subscriptions.push(buildCmd);
