@@ -44,13 +44,8 @@ function activate(context) {
          tungstenTerminal.sendText(clearCmd);
       }
 
-      // Run in the intended working directory and avoid absolute file paths.
-      if (process.platform === 'win32') {
-         tungstenTerminal.sendText(`cd "${workingDir}"`);
-      } else {
-         tungstenTerminal.sendText(`cd "${workingDir}"`);
-      }
-      tungstenTerminal.sendText(cmd);
+      // Combine cd and command on the same line so the command runs only if cd succeeds
+      tungstenTerminal.sendText(`cd "${workingDir}" && ${cmd}`);
    });
 
    // Register the run command (builds then runs)
@@ -96,7 +91,7 @@ function activate(context) {
       let runCmd = '';
 
       if (process.platform === 'win32') {
-         runCmd = `& "${execFile}"`;
+         runCmd = `.\\${execFile}`;
       } else {
          runCmd = `./"${execFile}"`;
       }
@@ -113,8 +108,7 @@ function activate(context) {
          const clearCmd = process.platform === 'win32' ? 'cls' : 'clear';
          tungstenTerminal.sendText(clearCmd);
       }
-
-      // Combine both commands on the same line, run second only if first succeeds
+      // Combine both commands on the same line
       tungstenTerminal.sendText(`cd "${workingDir}" && ${buildCmd} && ${runCmd}`);
    });
 
