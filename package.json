@@ -2,7 +2,7 @@
   "name": "tungsten",
   "displayName": "tungsten",
   "description": "support for the tungsten programming language",
-  "version": "0.1.5",
+  "version": "1.0.1",
   "publisher": "RickIsGone",
   "engines": {
     "vscode": "^1.102.0"
@@ -44,11 +44,13 @@
     "commands": [
       {
         "command": "tungsten.build",
-        "title": "Build Tungsten"
+        "title": "🔨 Build tungsten",
+        "icon": "$(tools)"
       },
       {
         "command": "tungsten.run",
-        "title": "▶ Run tungsten"
+        "title": "▶ Run tungsten",
+        "icon": "$(run)"
       }
     ],
     "keybindings": [
@@ -64,13 +66,28 @@
       }
     ],
     "menus": {
-      "editor/title": [
+      "editor/title/run": [
+        {
+          "command": "tungsten.build",
+          "when": "editorLangId == tungsten",
+          "group": "navigation@1"
+        },
         {
           "command": "tungsten.run",
           "when": "editorLangId == tungsten",
-          "group": "navigation@100"
+          "group": "navigation@2"
         }
       ]
+    },
+    "configuration": {
+      "title": "Tungsten",
+      "properties": {
+        "tungsten.clearTerminalBeforeRun": {
+          "type": "boolean",
+          "default": false,
+          "description": "Clear the terminal before each build/run command"
+        }
+      }
     }
   }
 }

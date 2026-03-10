@@ -2,6 +2,9 @@ const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
 
+// Shared terminal reference
+let tungstenTerminal = null;
+
 function activate(context) {
    // Register the build command
    let buildCmd = vscode.commands.registerCommand('tungsten.build', () => {
@@ -14,6 +17,7 @@ function activate(context) {
       const buildTgsPath = path.join(rootPath, 'build.tgs');
       const hasBuildTgs = fs.existsSync(buildTgsPath);
       let cmd = '';
+      let workingDir = rootPath;
       if (hasBuildTgs) {
          cmd = `tungsten build-tgs`;
       } else {
@@ -22,11 +26,31 @@ function activate(context) {
             vscode.window.showErrorMessage('No active file to build');
             return;
          }
-         cmd = `tungsten "${activeFile}"`;
+         workingDir = path.dirname(activeFile);
+         const fileName = path.basename(activeFile);
+         cmd = `tungsten "${fileName}"`;
       }
-      const terminal = vscode.window.createTerminal('Tungsten Build');
-      terminal.show();
-      terminal.sendText(cmd);
+
+      // Reuse existing terminal or create new one
+      if (!tungstenTerminal || tungstenTerminal.exitStatus !== undefined) {
+         tungstenTerminal = vscode.window.createTerminal('Tungsten');
+      }
+      tungstenTerminal.show();
+
+      // Clear terminal if setting is enabled
+      const config = vscode.workspace.getConfiguration('tungsten');
+      if (config.get('clearTerminalBeforeRun', false)) {
+         const clearCmd = process.platform === 'win32' ? 'cls' : 'clear';
+         tungstenTerminal.sendText(clearCmd);
+      }
+
+      // Run in the intended working directory and avoid absolute file paths.
+      if (process.platform === 'win32') {
+         tungstenTerminal.sendText(`cd "${workingDir}"`);
+      } else {
+         tungstenTerminal.sendText(`cd "${workingDir}"`);
+      }
+      tungstenTerminal.sendText(cmd);
    });
 
    // Register the run command (builds then runs)
@@ -41,6 +65,7 @@ function activate(context) {
       const hasBuildTgs = fs.existsSync(buildTgsPath);
 
       let buildCmd = '';
+      let workingDir = rootPath;
       if (hasBuildTgs) {
          buildCmd = `tungsten build-tgs`;
       } else {
@@ -49,24 +74,59 @@ function activate(context) {
             vscode.window.showErrorMessage('No active file to build');
             return;
          }
-         buildCmd = `tungsten "${activeFile}"`;
+         workingDir = path.dirname(activeFile);
+         const fileName = path.basename(activeFile);
+         buildCmd = `tungsten "${fileName}"`;
       }
 
-      const activeFile = vscode.window.activeTextEditor.document.fileName;
+      const activeFile = vscode.window.activeTextEditor?.document.fileName;
+      if (!activeFile) {
+         vscode.window.showErrorMessage('No active file to run');
+         return;
+      }
       // Assume executable has the same filename without .tgs extension
-      const execFile = activeFile.replace(/\.tgs$/, '');
+      let execFile = path.basename(activeFile).replace(/\.tgs$/, '');
 
-      // Use correct path separator based on OS
-      const execPrefix = process.platform === 'win32' ? '.\\' : './';
+      // Add .exe extension on Windows
+      if (process.platform === 'win32') {
+         execFile += '.exe';
+      }
 
-      const terminal = vscode.window.createTerminal('Tungsten Build + Run');
-      terminal.show();
-      terminal.sendText(buildCmd);
-      terminal.sendText(execPrefix + "\"" + execFile + "\"");
+      // Build run command based on platform
+      let runCmd = '';
+
+      if (process.platform === 'win32') {
+         runCmd = `& "${execFile}"`;
+      } else {
+         runCmd = `./"${execFile}"`;
+      }
+
+      // Reuse existing terminal or create new one
+      if (!tungstenTerminal || tungstenTerminal.exitStatus !== undefined) {
+         tungstenTerminal = vscode.window.createTerminal('Tungsten');
+      }
+      tungstenTerminal.show();
+
+      // Clear terminal if setting is enabled
+      const config = vscode.workspace.getConfiguration('tungsten');
+      if (config.get('clearTerminalBeforeRun', false)) {
+         const clearCmd = process.platform === 'win32' ? 'cls' : 'clear';
+         tungstenTerminal.sendText(clearCmd);
+      }
+
+      // Combine both commands on the same line, run second only if first succeeds
+      tungstenTerminal.sendText(`cd "${workingDir}" && ${buildCmd} && ${runCmd}`);
    });
 
    context.subscriptions.push(buildCmd);
    context.subscriptions.push(runCmd);
+
+   // Clean up terminal reference when it is closed
+   context.subscriptions.push(vscode.window.onDidCloseTerminal(terminal => {
+      if (terminal === tungstenTerminal) {
+         tungstenTerminal = null;
+      }
+   }));
 
    // Add a status bar Play button that runs the 'tungsten.run' command
    const playButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
