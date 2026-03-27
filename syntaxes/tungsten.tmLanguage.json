@@ -53,7 +53,7 @@
 			"patterns": [
 				{
 					"name": "storage.type.tungsten",
-					"match": "\\b(int|uint|i8|u8|i16|u16|i32|u32|i64|u64|i128|u128|float|double|char|String|bool|void|argPack|num)\\b"
+					"match": "\\b(int|uint|i8|u8|i16|u16|i32|u32|i64|u64|i128|u128|float|f32|double|f64|char|String|bool|void|argPack)\\b"
 				}
 			]
 		},
@@ -103,6 +103,10 @@
 			"end": "\"",
 			"patterns": [
 				{
+					"name": "constant.other.placeholder.c",
+					"match": "%(?:\\d+\\$)?[-+#0 ']*\\*?(?:\\d+|\\*)?(?:\\.(?:\\d+|\\*))?(?:hh|h|ll|l|j|z|t|L)?[diuoxXfFeEgGaAcspn%]"
+				},
+				{
 					"name": "constant.character.escape.tungsten",
 					"match": "\\\\."
 				}
@@ -124,11 +128,11 @@
 		"builtins": {
 			"patterns": [
 				{
-					"name": "support.function.builtin.tungsten",
+					"name": "keyword.operator.functionlike.tungsten",
 					"match": "\\b(typeof|nameof|sizeof)(?=\\s*\\()"
 				},
 				{
-					"name": "support.constant.builtin.tungsten",
+					"name": "keyword.operator.functionlike.tungsten",
 					"match": "\\b(__BuiltinFunction|__BuiltinLine|__BuiltinColumn|__BuiltinFile)\\b(?=\\s*\\(\\))"
 				}
 			]
