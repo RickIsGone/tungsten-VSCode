@@ -45,7 +45,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.tungsten",
-					"match": "\\b(fun|if|else|for|while|do|switch|case|default|break|continue|ret|exit|new|free|extern|module|export|import|class|public|private|protected|static|namespace|enum)\\b"
+					"match": "\\b(fun|if|else|for|while|do|switch|case|default|break|continue|ret|exit|new|free|extern|module|export|import|class|struct|public|private|protected|static|namespace|enum|const)\\b"
 				}
 			]
 		},
@@ -134,6 +134,10 @@
 				{
 					"name": "keyword.operator.functionlike.tungsten",
 					"match": "\\b(__BuiltinFunction|__BuiltinLine|__BuiltinColumn|__BuiltinFile)\\b(?=\\s*\\(\\))"
+				},
+				{
+					"name": "keyword.operator.cast.tungsten",
+					"match": "\\b(staticCast|constCast)\\b(?=\\s*<[^>]+>\\s*\\()"
 				}
 			]
 		},
