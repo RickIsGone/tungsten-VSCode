@@ -7,7 +7,7 @@ let tungstenTerminal = null;
 
 function activate(context) {
    // Register the build command
-   let buildCmd = vscode.commands.registerCommand('tungsten.build', () => {
+   let buildCmd = vscode.commands.registerCommand('tungsten.build', async () => {
       const folders = vscode.workspace.workspaceFolders;
       if (!folders) {
          vscode.window.showErrorMessage('No folder is opened');
@@ -49,14 +49,14 @@ function activate(context) {
 
       // Save file if setting is enabled
       if (config.get('saveBeforeBuild')) {
-         vscode.window.activeTextEditor.document.save();
+         await vscode.window.activeTextEditor.document.save();
       }
 
       tungstenTerminal.sendText(`cd "${workingDir}" && ${cmd}`);
    });
 
    // Register the run command (builds then runs)
-   let runCmd = vscode.commands.registerCommand('tungsten.run', () => {
+   let runCmd = vscode.commands.registerCommand('tungsten.run', async () => {
       const folders = vscode.workspace.workspaceFolders;
       if (!folders) {
          vscode.window.showErrorMessage('No folder is opened');
@@ -121,7 +121,7 @@ function activate(context) {
 
       // Save file if setting is enabled
       if (config.get('saveBeforeBuild')) {
-         vscode.window.activeTextEditor.document.save();
+         await vscode.window.activeTextEditor.document.save();
       }
       // Combine both commands on the same line
       tungstenTerminal.sendText(`cd "${workingDir}" && ${buildCmd} && ${runCmd}`);

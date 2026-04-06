@@ -2,7 +2,7 @@
   "name": "tungsten",
   "displayName": "tungsten",
   "description": "support for the tungsten programming language",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "publisher": "RickIsGone",
   "engines": {
     "vscode": "^1.102.0"
@@ -87,7 +87,7 @@
           "default": false,
           "description": "Clear the terminal before each build/run command"
         },
-        "tungsten.saveBeforeRun": {
+        "tungsten.saveBeforeBuild": {
           "type": "boolean",
           "default": false,
           "description": "Save the current file before each build/run command"
