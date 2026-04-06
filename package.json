@@ -2,7 +2,7 @@
   "name": "tungsten",
   "displayName": "tungsten",
   "description": "support for the tungsten programming language",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "publisher": "RickIsGone",
   "engines": {
     "vscode": "^1.102.0"
@@ -86,6 +86,22 @@
           "type": "boolean",
           "default": false,
           "description": "Clear the terminal before each build/run command"
+        },
+        "tungsten.saveBeforeRun": {
+          "type": "boolean",
+          "default": false,
+          "description": "Save the current file before each build/run command"
+        },
+        "tungsten.defaultOptimizationLevel": {
+          "type": "string",
+          "default": "O0",
+          "description": "The default optimization level for the tungsten compiler",
+          "enum": [
+            "O0",
+            "O1",
+            "O2",
+            "O3"
+          ]
         }
       }
     }

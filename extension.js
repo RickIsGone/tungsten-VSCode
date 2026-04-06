@@ -44,7 +44,14 @@ function activate(context) {
          tungstenTerminal.sendText(clearCmd);
       }
 
-      // Combine cd and command on the same line so the command runs only if cd succeeds
+      // Set optimization level
+      cmd = cmd + ` -${config.get('defaultOptimizationLevel')}`;
+
+      // Save file if setting is enabled
+      if (config.get('saveBeforeBuild')) {
+         vscode.window.activeTextEditor.document.save();
+      }
+
       tungstenTerminal.sendText(`cd "${workingDir}" && ${cmd}`);
    });
 
@@ -107,6 +114,14 @@ function activate(context) {
       if (config.get('clearTerminalBeforeRun', false)) {
          const clearCmd = process.platform === 'win32' ? 'cls' : 'clear';
          tungstenTerminal.sendText(clearCmd);
+      }
+
+      // Set optimization level
+      buildCmd = buildCmd + ` -${config.get('defaultOptimizationLevel')}`;
+
+      // Save file if setting is enabled
+      if (config.get('saveBeforeBuild')) {
+         vscode.window.activeTextEditor.document.save();
       }
       // Combine both commands on the same line
       tungstenTerminal.sendText(`cd "${workingDir}" && ${buildCmd} && ${runCmd}`);
