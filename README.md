@@ -20,10 +20,10 @@ This extension provides support for the **Tungsten** programming language in Vis
 
 ## Commands
 
-| Command ID          | Description                    | Default Shortcut   |
-| ------------------- | ------------------------------| ------------------ |
-| `tungsten.build`    | Build Tungsten project or file | `F7`               |
-| `tungsten.run`      | Build and run Tungsten         | `Ctrl + F5`        |
+| Command ID       | Description                    | Default Shortcut |
+| :--------------- | :----------------------------- | :--------------- |
+| `tungsten.build` | Build Tungsten project or file | `F7`             |
+| `tungsten.run`   | Build and run Tungsten         | `Ctrl + F5`      |
 
 ---
 
@@ -52,5 +52,22 @@ The extension is implemented in JavaScript using the VS Code Extension API. The 
 
 ## Known Issues
 
-- Currently, no integrated debugging support.
 - Assumes executable has the same filename as source but without `.tgs` extension.
+
+---
+
+## Debugging Tungsten in VS Code
+
+You can debug the currently active `.tgs` file with a build + launch flow:
+
+1. Build task: `Tungsten: Build Debug (Active File)` compiles `${file}` with `-O0`.
+2. Launch config: `Tungsten: Debug Active File` starts `${fileDirname}/${fileBasenameNoExtension}.exe`.
+3. Pre-launch task: the debug config runs the build task automatically before attaching.
+
+Required setup:
+
+- Install the **C/C++** extension by Microsoft (`ms-vscode.cpptools`) to use `cppvsdbg`.
+- Ensure `tungsten` is available in your system `PATH`.
+- Open a `.tgs` file, place breakpoints, then start the debug configuration.
+
+This extension also contributes breakpoints support for language id `tungsten`.

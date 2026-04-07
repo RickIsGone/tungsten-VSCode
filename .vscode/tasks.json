@@ -4,25 +4,24 @@
       {
          "label": "build tungsten",
          "type": "shell",
-         "command": "bash",
+         "command": "tungsten",
          "args": [
-            "-c",
-            "if [ -f ./build.tgs ]; then echo 'build.tgs trovato: eseguo build personalizzata'; else echo 'build.tgs non trovato: eseguo build standard'; fi"
+            "${file}"
          ],
          "group": {
             "kind": "build",
             "isDefault": true
          },
          "problemMatcher": []
-      }
-  
-         {
+      },
+      {
          "label": "Run Tungsten",
          "type": "shell",
-         "command": "./tungsten",
-         "args": [
-            "if [ -f ./build.tgs ]; then tgs-build; else {file}"
-         ],
+         "command": "${fileBasenameNoExtension}.exe",
+         "options": {
+            "cwd": "${fileDirname}"
+         },
+         "dependsOn": "build tungsten",
          "group": "build",
          "problemMatcher": [],
          "presentation": {

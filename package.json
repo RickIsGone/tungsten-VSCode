@@ -2,7 +2,7 @@
   "name": "tungsten",
   "displayName": "tungsten",
   "description": "support for the tungsten programming language",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "publisher": "RickIsGone",
   "engines": {
     "vscode": "^1.102.0"
@@ -39,6 +39,11 @@
         "language": "tungsten",
         "scopeName": "source.tungsten",
         "path": "./syntaxes/tungsten.tmLanguage.json"
+      }
+    ],
+    "breakpoints": [
+      {
+        "language": "tungsten"
       }
     ],
     "commands": [
